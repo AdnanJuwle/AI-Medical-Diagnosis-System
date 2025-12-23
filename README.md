@@ -1,10 +1,10 @@
 # AI Medical Diagnosis System
 
-A machine learning-based medical diagnosis system that predicts the risk of various diseases based on patient health data.
+A comprehensive machine learning-based health risk assessment system that predicts the risk of various diseases based on user health data. Built with Flask backend, modern frontend, and RandomForest machine learning model.
 
-## Features
+## 🚀 Features
 
-- **Multi-disease Prediction**: Predicts risk for 6 different diseases:
+- **AI-Powered Risk Assessment**: Predicts risk levels for 6 different diseases:
   - Heart Disease
   - Skin Cancer
   - Other Cancer
@@ -12,68 +12,115 @@ A machine learning-based medical diagnosis system that predicts the risk of vari
   - Diabetes
   - Arthritis
 
-- **Modern Web Interface**: Clean, responsive frontend with real-time predictions
-- **RESTful API**: Flask-based backend with proper error handling
-- **Machine Learning Model**: Trained on cardiovascular disease dataset
+- **Modern Web Interface**: Beautiful, responsive UI with smooth animations
+- **Real-time Predictions**: Fast API responses with detailed risk analysis
+- **Comprehensive Health Data Analysis**: Takes into account:
+  - Personal demographics (age, gender)
+  - Physical measurements (height, weight, BMI)
+  - Lifestyle factors (exercise, smoking, alcohol)
+  - Dietary habits (fruit, vegetables, fried food consumption)
+  - Medical history (check-ups)
 
-## Quick Start
+## 📋 Prerequisites
 
-### Prerequisites
+- Python 3.8 or higher
+- pip (Python package manager)
 
-- Python 3.8+
-- pip
+## 🛠️ Installation
 
-### Installation
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/AdnanJuwle/AI-Medical-Diagnosis-System.git
+   cd AI-Medical-Diagnosis-System
+   ```
 
-1. Clone the repository:
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   Or install packages individually:
+   ```bash
+   pip install Flask flask-cors scikit-learn pandas numpy joblib
+   ```
+
+## 🏃 Running the Application
+
+### 1. Start the Backend Server
+
 ```bash
-git clone <repository-url>
-cd AI-Medical-Diagnosis-System
+python backend/app.py
 ```
 
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+The Flask server will start on `http://127.0.0.1:5000`
 
-### Running the Application
+### 2. Open the Frontend
 
-1. **Start the Backend Server**:
-```bash
-cd backend
-python app.py
-```
-The API will be available at `http://127.0.0.1:5000`
+Open `frontend/index.html` in your web browser, or serve it using a local server:
 
-2. **Start the Frontend Server** (in a new terminal):
 ```bash
+# Using Python's built-in server
 cd frontend
-python -m http.server 8080
+python -m http.server 8000
 ```
-The web interface will be available at `http://127.0.0.1:8080`
 
-3. **Open your browser** and navigate to `http://127.0.0.1:8080`
+Then navigate to `http://localhost:8000` in your browser.
 
-## Usage
+## 🎯 Usage
 
-1. Fill out the health assessment form with your information:
-   - Age category
-   - Gender
-   - Height and weight
-   - BMI
-   - Exercise habits
-   - Check-up frequency
-   - Smoking history
-   - Alcohol consumption
-   - Dietary habits (fruit, vegetables, fried food)
+1. Fill out the health information form with your data
+2. Click "Calculate BMI" if you need to compute your BMI from height and weight
+3. Click "Analyze Health Risks" to get predictions
+4. Review the risk assessment results for each disease
 
-2. Click "Predict" to get your health risk assessment
+## 📊 Model Training
 
-3. Review the results showing risk levels for each disease
+The system includes a comprehensive training script to train and evaluate the model:
 
-## API Endpoints
+```bash
+python training/train_model.py
+```
 
-### POST /predict
+This script will:
+- Load and preprocess the CVD dataset
+- Train a RandomForest-based MultiOutputClassifier
+- Evaluate model performance with detailed metrics
+- Save the trained model and preprocessor to the `models/` directory
+- Generate training metadata with accuracy scores
+
+### Model Details
+
+- **Algorithm**: MultiOutputClassifier with RandomForestClassifier
+- **Features**: 36 input features (after preprocessing)
+- **Targets**: 6 disease risk predictions
+- **Preprocessing**: StandardScaler for numerical features, OneHotEncoder for categorical features
+- **Class Balancing**: Uses `class_weight='balanced'` to handle imbalanced data
+
+## 📁 Project Structure
+
+```
+AI-Medical-Diagnosis-System/
+├── backend/
+│   └── app.py              # Flask API server
+├── frontend/
+│   ├── index.html          # Main web interface
+│   ├── script.js           # Frontend JavaScript
+│   └── styles.css          # Modern CSS styling
+├── training/
+│   └── train_model.py      # Model training script
+├── models/
+│   ├── medical_ai_model.pkl      # Trained ML model
+│   ├── preprocessor_36.pkl       # Data preprocessor
+│   └── training_metadata.json    # Training metrics and info
+├── datasets/
+│   └── CVD_cleaned.csv     # Training dataset
+├── requirements.txt        # Python dependencies
+└── README.md              # This file
+```
+
+## 🔌 API Endpoint
+
+### POST `/predict`
 
 Predicts disease risk based on health data.
 
@@ -109,59 +156,83 @@ Predicts disease risk based on health data.
 
 Where `1` indicates high risk and `0` indicates low risk.
 
-## Project Structure
+## 🎨 UI Features
 
-```
-AI-Medical-Diagnosis-System/
-├── backend/
-│   ├── app.py              # Flask API server
-│   └── medical_ai_model.pkl # Trained ML model
-├── frontend/
-│   ├── index.html          # Main web interface
-│   ├── script.js           # Frontend JavaScript
-│   └── styles.css          # Styling
-├── models/
-│   └── medical_ai_model.pkl # ML model (duplicate)
-├── datasets/
-│   └── CVD_cleaned.csv     # Training dataset
-├── requirements.txt        # Python dependencies
-└── README.md              # This file
-```
+- **Modern Design**: Clean, professional interface with gradient backgrounds
+- **Responsive Layout**: Works seamlessly on desktop, tablet, and mobile
+- **Smooth Animations**: Engaging transitions and hover effects
+- **Risk Summary**: Quick overview of high-risk conditions detected
+- **Visual Indicators**: Color-coded risk levels (red for high risk, green for low risk)
+- **Form Validation**: Real-time input validation and helpful tooltips
 
-## Technical Details
+## 🔧 Technical Details
 
-- **Model**: MultiOutputClassifier with LogisticRegression
-- **Features**: 36 input features including demographic, lifestyle, and health data
-- **Preprocessing**: Handles categorical variables and missing values
-- **Frontend**: Vanilla JavaScript with modern CSS Grid layout
-- **Backend**: Flask with CORS support for cross-origin requests
+- **Backend**: Flask with CORS support
+- **Frontend**: Vanilla JavaScript with modern CSS
+- **ML Framework**: scikit-learn
+- **Model**: RandomForestClassifier with MultiOutputClassifier
+- **Preprocessing**: StandardScaler + OneHotEncoder
+- **Features**: 36 processed features from 13 input features
+- **Prediction Method**: Uses probability thresholds (0.25) for better sensitivity
 
-## Important Notes
+## 📈 Model Performance
 
-⚠️ **Medical Disclaimer**: This system is for educational and research purposes only. It should not be used as a substitute for professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare professionals for medical decisions.
+The model is trained on a dataset of 308,854 samples with the following characteristics:
+- **Training Set**: 247,083 samples (80%)
+- **Test Set**: 61,771 samples (20%)
+- **Overall Accuracy**: ~64% (average across all diseases)
+- **Per-Disease Accuracy**: Varies by disease (42-73%)
 
-## Troubleshooting
+Note: Accuracy varies by disease due to class imbalance. The model uses balanced class weights to improve detection of high-risk cases.
+
+## ⚠️ Important Medical Disclaimer
+
+**This system is for educational and research purposes only.** 
+
+It should **NOT** be used as a substitute for professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare professionals for medical decisions. The predictions are based on statistical patterns in training data and may not accurately reflect individual health conditions.
+
+## 🐛 Troubleshooting
 
 ### Common Issues
 
-1. **"Connection refused" error**: Make sure both servers are running
-2. **"Model not found" error**: Ensure the model file exists in the models directory
-3. **CORS errors**: The backend includes CORS headers, but make sure both servers are running
+1. **"Connection refused" error**
+   - Make sure the Flask backend server is running on `http://127.0.0.1:5000`
+   - Check that no firewall is blocking the connection
 
-### Port Conflicts
+2. **"Model not found" error**
+   - Ensure the model files exist in the `models/` directory
+   - Run the training script to generate model files if missing
 
-If ports 5000 or 8080 are in use, you can change them:
-- Backend: Modify the `app.run()` call in `backend/app.py`
-- Frontend: Use a different port with `python -m http.server <port>`
+3. **CORS errors**
+   - Make sure `flask-cors` is installed
+   - Verify CORS is enabled in `backend/app.py`
 
-## Contributing
+4. **Import errors**
+   - Install all dependencies: `pip install -r requirements.txt`
+   - Ensure you're using Python 3.8+
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+## 🔄 Recent Updates
 
-## License
+- ✅ Added comprehensive training script (`training/train_model.py`)
+- ✅ Upgraded to RandomForestClassifier for better performance
+- ✅ Implemented probability-based predictions with adjustable thresholds
+- ✅ Complete UI redesign with modern, responsive design
+- ✅ Added training metadata and model documentation
+- ✅ Improved prediction accuracy for high-risk cases
+- ✅ Enhanced error handling and user feedback
 
-This project is for educational purposes. Please ensure compliance with local regulations regarding medical software.
+## 📝 License
+
+This project is open source and available for educational purposes.
+
+## 👤 Author
+
+Adnan Juwle
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
+
+---
+
+**Remember**: This tool is for educational purposes only. Always consult healthcare professionals for medical advice.
