@@ -1,0 +1,58 @@
+{
+  "model_type": "MultiOutputClassifier with RandomForestClassifier",
+  "n_features": 36,
+  "n_targets": 6,
+  "target_columns": [
+    "Heart_Disease",
+    "Skin_Cancer",
+    "Other_Cancer",
+    "Depression",
+    "Diabetes",
+    "Arthritis"
+  ],
+  "feature_columns": [
+    "General_Health",
+    "Checkup",
+    "Exercise",
+    "Sex",
+    "Age_Category",
+    "Height_(cm)",
+    "Weight_(kg)",
+    "BMI",
+    "Smoking_History",
+    "Alcohol_Consumption",
+    "Fruit_Consumption",
+    "Green_Vegetables_Consumption",
+    "FriedPotato_Consumption"
+  ],
+  "categorical_features": [
+    "General_Health",
+    "Checkup",
+    "Exercise",
+    "Sex",
+    "Age_Category",
+    "Smoking_History"
+  ],
+  "numerical_features": [
+    "Height_(cm)",
+    "Weight_(kg)",
+    "BMI",
+    "Alcohol_Consumption",
+    "Fruit_Consumption",
+    "Green_Vegetables_Consumption",
+    "FriedPotato_Consumption"
+  ],
+  "train_size": 247083,
+  "test_size": 61771,
+  "overall_accuracy": 0.6424967487440169,
+  "disease_accuracies": {
+    "Heart_Disease": 0.7372715351864143,
+    "Skin_Cancer": 0.6782794515225591,
+    "Other_Cancer": 0.6515678878438103,
+    "Depression": 0.6853054022113937,
+    "Diabetes": 0.4239529876479254,
+    "Arthritis": 0.6786032280519985
+  },
+  "random_state": 42,
+  "test_size_ratio": 0.2
+}

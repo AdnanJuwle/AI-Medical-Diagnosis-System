@@ -9,6 +9,8 @@ app = Flask(__name__)
 CORS(app)  # Enable cross-origin requests
 
 # Load the model and preprocessor with correct paths
+# Note: Both model and preprocessor are created by training/train_model.py
+# The preprocessor contains the fitted StandardScaler and OneHotEncoder from training
 model_path = os.path.join(os.path.dirname(__file__), '..', 'models', 'medical_ai_model.pkl')
 preprocessor_path = os.path.join(os.path.dirname(__file__), '..', 'models', 'preprocessor_36.pkl')
 
@@ -93,18 +95,55 @@ def predict():
             print("Warning: NaN values detected in processed data")
             input_data_processed = np.nan_to_num(input_data_processed)
 
-        # Predict using the trained model
+        # Get prediction probabilities instead of just predictions
+        # This gives us the confidence/risk level
+        prediction_proba = model.predict_proba(input_data_processed)
         prediction = model.predict(input_data_processed)
-
+        
+        # Debug: print raw predictions and probabilities
+        print(f"Raw prediction: {prediction}")
+        print(f"Prediction probabilities shape: {[p.shape for p in prediction_proba]}")
+        
         # Prepare prediction response
         diseases = ['Heart_Disease', 'Skin_Cancer', 'Other_Cancer', 'Depression', 'Diabetes', 'Arthritis']
         result = {}
         
         for i, disease in enumerate(diseases):
-            if i < len(prediction[0]):
-                # Convert 'Yes'/'No' to 1/0
+            if i < len(prediction[0]) and i < len(prediction_proba):
                 prediction_value = prediction[0][i]
-                if prediction_value == 'Yes':
+                
+                # Get probability of positive class (Yes/1)
+                # prediction_proba[i] is the probabilities for disease i
+                # Shape: (n_samples, n_classes)
+                proba = prediction_proba[i][0]  # [0] gets first (and only) sample
+                
+                # Handle different class label formats
+                # Try to find the "Yes" class probability
+                try:
+                    classes = model.estimators_[i].classes_
+                    yes_idx = None
+                    for idx, cls in enumerate(classes):
+                        if str(cls).lower() in ['yes', '1'] or cls == 1:
+                            yes_idx = idx
+                            break
+                    
+                    if yes_idx is not None and yes_idx < len(proba):
+                        risk_probability = proba[yes_idx]
+                    elif len(proba) == 2:
+                        # Binary: assume second class is "Yes"
+                        risk_probability = proba[1]
+                    else:
+                        # Multi-class: use max probability
+                        risk_probability = max(proba)
+                except:
+                    # Fallback: use second class if binary, else max
+                    risk_probability = proba[1] if len(proba) == 2 else max(proba) if len(proba) > 0 else 0.0
+                
+                print(f"{disease}: prediction={prediction_value}, risk_prob={risk_probability:.3f}")
+                
+                # Use lower threshold (0.25) to catch high-risk cases like extreme BMI
+                # This makes the model more sensitive to risk factors
+                if risk_probability > 0.25:
                     result[disease] = 1
                 else:
                     result[disease] = 0

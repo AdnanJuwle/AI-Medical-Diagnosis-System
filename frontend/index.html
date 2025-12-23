@@ -3,103 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical AI Diagnosis</title>
+    <title>AI Health Risk Assessment | Medical Diagnosis System</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Medical AI Diagnosis System</h1>
-        
-        <div class="info-section">
-            <h3>📋 Instructions</h3>
-            <p>Please fill out all fields accurately. The AI model will analyze your health data to assess risk levels for various diseases. All predictions are for educational purposes only.</p>
-            <div class="reference-guide">
-                <h4>📊 Reference Guide</h4>
-                <ul>
-                    <li><strong>BMI:</strong> Weight(kg) ÷ Height(m)²</li>
-                    <li><strong>Exercise:</strong> Regular physical activity (30+ minutes, 3+ times/week)</li>
-                    <li><strong>Check-up:</strong> Medical examination by healthcare professional</li>
-                    <li><strong>Servings:</strong> 1 serving = 1 cup (240ml) or 1 medium piece</li>
-                </ul>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5"></path>
+                        <path d="M2 12l10 5 10-5"></path>
+                    </svg>
+                    <h1>AI Health Risk Assessment</h1>
+                </div>
+                <p class="subtitle">Powered by Machine Learning</p>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Info Card -->
+            <div class="info-card">
+                <div class="info-header">
+                    <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 16v-4M12 8h.01"></path>
+                    </svg>
+                    <h2>How It Works</h2>
+                </div>
+                <p class="info-text">Enter your health information below. Our AI model will analyze your data and provide risk assessments for various conditions. This tool is for educational purposes only and should not replace professional medical advice.</p>
+                <details class="reference-guide">
+                    <summary>📊 Reference Guide</summary>
+                    <div class="guide-content">
+                        <div class="guide-item">
+                            <strong>BMI:</strong> Body Mass Index = Weight(kg) ÷ Height(m)²
+                        </div>
+                        <div class="guide-item">
+                            <strong>Exercise:</strong> Regular physical activity (30+ minutes, 3+ times/week)
+                        </div>
+                        <div class="guide-item">
+                            <strong>Check-up:</strong> Medical examination by healthcare professional
+                        </div>
+                        <div class="guide-item">
+                            <strong>Servings:</strong> 1 serving = 1 cup (240ml) or 1 medium piece
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Form Card -->
+            <div class="form-card">
+                <h2 class="form-title">Health Information</h2>
+                <form id="prediction-form">
+                    <div class="form-grid">
+                        <!-- Personal Info Section -->
+                        <div class="form-section">
+                            <h3 class="section-title">Personal Information</h3>
+                            
+                            <div class="form-group">
+                                <label for="age">
+                                    <span class="label-text">Age Category</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <select id="age" required>
+                                    <option value="">Select age range</option>
+                                    <option value="18-24">18-24 years</option>
+                                    <option value="25-29">25-29 years</option>
+                                    <option value="30-34">30-34 years</option>
+                                    <option value="35-39">35-39 years</option>
+                                    <option value="40-44">40-44 years</option>
+                                    <option value="45-49">45-49 years</option>
+                                    <option value="50-54">50-54 years</option>
+                                    <option value="55-59">55-59 years</option>
+                                    <option value="60-64">60-64 years</option>
+                                    <option value="65-69">65-69 years</option>
+                                    <option value="70-74">70-74 years</option>
+                                    <option value="75-79">75-79 years</option>
+                                    <option value="80+">80+ years</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gender">
+                                    <span class="label-text">Gender</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <select id="gender" required>
+                                    <option value="">Select gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Physical Measurements Section -->
+                        <div class="form-section">
+                            <h3 class="section-title">Physical Measurements</h3>
+                            
+                            <div class="form-group">
+                                <label for="height">
+                                    <span class="label-text">Height (cm)</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <input type="number" id="height" min="100" max="250" placeholder="e.g., 175" required>
+                                <small class="help-text">Average: 160-180 cm</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="weight">
+                                    <span class="label-text">Weight (kg)</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <input type="number" id="weight" min="30" max="200" placeholder="e.g., 70" required>
+                                <small class="help-text">Average: 60-80 kg</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bmi">
+                                    <span class="label-text">BMI (Body Mass Index)</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="bmi-input-group">
+                                    <input type="number" id="bmi" min="10" max="60" step="0.1" placeholder="e.g., 22.9" required>
+                                    <button type="button" id="calculate-bmi" class="bmi-calculator">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 11l3 3L22 4"></path>
+                                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                        </svg>
+                                        Calculate
+                                    </button>
+                                </div>
+                                <small class="help-text">Normal: 18.5-24.9 | Overweight: 25-29.9 | Obese: ≥30</small>
+                            </div>
+                        </div>
+
+                        <!-- Lifestyle Section -->
+                        <div class="form-section">
+                            <h3 class="section-title">Lifestyle & Health</h3>
+                            
+                            <div class="form-group">
+                                <label for="exercise">
+                                    <span class="label-text">Regular Exercise</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <select id="exercise" required>
+                                    <option value="">Select option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="checkup">
+                                    <span class="label-text">Last Medical Check-up</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <select id="checkup" required>
+                                    <option value="">Select option</option>
+                                    <option value="Within the past year">Within the past year</option>
+                                    <option value="Within the past 2 years">Within the past 2 years</option>
+                                    <option value="Within the past 5 years">Within the past 5 years</option>
+                                    <option value="5 or more years ago">5 or more years ago</option>
+                                    <option value="Never">Never</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="smoking_history">
+                                    <span class="label-text">Smoking History</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <select id="smoking_history" required>
+                                    <option value="">Select option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="alcohol_consumption">
+                                    <span class="label-text">Alcohol Consumption</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <select id="alcohol_consumption" required>
+                                    <option value="">Select option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Diet Section -->
+                        <div class="form-section">
+                            <h3 class="section-title">Diet & Nutrition</h3>
+                            
+                            <div class="form-group">
+                                <label for="fruit_consumption">
+                                    <span class="label-text">Fruit Consumption (daily servings)</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <input type="number" id="fruit_consumption" min="0" max="30" step="0.5" placeholder="e.g., 2" required>
+                                <small class="help-text">Low: 0-2 | Moderate: 3-5 | High: 6+</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="green_vegetables_consumption">
+                                    <span class="label-text">Green Vegetables (daily servings)</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <input type="number" id="green_vegetables_consumption" min="0" max="30" step="0.5" placeholder="e.g., 3" required>
+                                <small class="help-text">Low: 0-1 | Moderate: 2-3 | High: 4+</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fried_food_consumption">
+                                    <span class="label-text">Fried Food (weekly servings)</span>
+                                    <span class="required">*</span>
+                                </label>
+                                <input type="number" id="fried_food_consumption" min="0" max="30" step="0.5" placeholder="e.g., 1" required>
+                                <small class="help-text">Low: 0-2 | Moderate: 3-5 | High: 6+</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">Analyze Health Risks</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results Card -->
+            <div id="prediction-result" class="results-card" style="display: none;">
+                <div class="results-header">
+                    <svg class="results-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <h2>Risk Assessment Results</h2>
+                </div>
+                <div id="result" class="results-content"></div>
             </div>
         </div>
-        
-        <form id="prediction-form">
-            <label for="age">Age Category:</label>
-            <select id="age" required>
-                <option value="18-24">18-24</option>
-                <option value="25-29">25-29</option>
-                <option value="30-34">30-34</option>
-                <option value="35-39">35-39</option>
-                <option value="40-44">40-44</option>
-                <option value="45-49">45-49</option>
-                <option value="50-54">50-54</option>
-                <option value="55-59">55-59</option>
-                <option value="60-64">60-64</option>
-                <option value="65-69">65-69</option>
-                <option value="70-74">70-74</option>
-                <option value="75-79">75-79</option>
-                <option value="80+">80+</option>
-            </select>
-            <label for="gender">Gender:</label>
-            <select id="gender" required>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
-            <label for="height">Height (cm):</label>
-            <input type="number" id="height" min="100" max="250" required>
-            <small class="help-text">Reference: Average adult height is 160-180 cm</small>
-            
-            <label for="weight">Weight (kg):</label>
-            <input type="number" id="weight" min="30" max="200" required>
-            <small class="help-text">Reference: Average adult weight is 60-80 kg</small>
-            
-            <label for="bmi">BMI (Body Mass Index):</label>
-            <input type="number" id="bmi" min="10" max="60" step="0.1" required>
-            <small class="help-text">Reference: Underweight &lt;18.5, Normal 18.5-24.9, Overweight 25-29.9, Obese ≥30</small>
-            <button type="button" id="calculate-bmi" class="bmi-calculator">📊 Calculate BMI</button>
-            <label for="exercise">Do you exercise regularly?</label>
-            <select id="exercise" required>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-            <label for="checkup">Last Check-up:</label>
-            <select id="checkup" required>
-                <option value="Within the past year">Within the past year</option>
-                <option value="Within the past 2 years">Within the past 2 years</option>
-                <option value="Within the past 5 years">Within the past 5 years</option>
-                <option value="5 or more years ago">5 or more years ago</option>
-                <option value="Never">Never</option>
-            </select>
-            <label for="smoking_history">Smoking History:</label>
-            <select id="smoking_history" required>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-            <label for="alcohol_consumption">Alcohol Consumption:</label>
-            <select id="alcohol_consumption" required>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-            <label for="fruit_consumption">Fruit Consumption (daily):</label>
-            <input type="number" id="fruit_consumption" min="0" max="30" step="0.5" required>
-            <small class="help-text">Reference: 0-2 servings = Low, 3-5 servings = Moderate, 6+ servings = High</small>
-            
-            <label for="green_vegetables_consumption">Green Vegetables Consumption (daily):</label>
-            <input type="number" id="green_vegetables_consumption" min="0" max="30" step="0.5" required>
-            <small class="help-text">Reference: 0-1 servings = Low, 2-3 servings = Moderate, 4+ servings = High</small>
-            
-            <label for="fried_food_consumption">Fried Food Consumption (weekly):</label>
-            <input type="number" id="fried_food_consumption" min="0" max="30" step="0.5" required>
-            <small class="help-text">Reference: 0-2 servings = Low, 3-5 servings = Moderate, 6+ servings = High</small>
-            <button type="submit">Predict</button>
-        </form>
 
-        <div id="prediction-result">
-            <h2>Prediction Results</h2>
-            <p id="result"></p>
-        </div>
+        <!-- Footer -->
+        <footer class="footer">
+            <p>⚠️ <strong>Medical Disclaimer:</strong> This tool is for educational purposes only. It should not be used as a substitute for professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare professionals for medical decisions.</p>
+        </footer>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
